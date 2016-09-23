@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Magento/Widget/etc/widget.xsd">
+	<widget id="magentoese_myaccountwidget" class="MagentoEse\MyAccountWidget\Block\Widget\MyAccount">
+		<label translate="true">My Account Widget</label>
+		<description>Display a snapshot of account information</description>
+		<parameters>
+			<parameter name="creditbalance" xsi:type="text"  visible="true" sort_order="0" >
+				<label translate="true">Credit Balance</label>
+			</parameter>
+			<parameter name="orders" xsi:type="text"  visible="true" sort_order="10" >
+				<label translate="true">Orders</label>
+			</parameter>
+		</parameters>
+	</widget>
+</widgets>
