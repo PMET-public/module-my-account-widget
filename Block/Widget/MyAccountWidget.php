@@ -1,7 +1,7 @@
 <?php
 namespace MagentoEse\MyAccountWidget\Block\Widget;
 
-class MyAccount extends \Magento\Framework\View\Element\Template implements \Magento\Widget\Block\BlockInterface
+class MyAccountWidget extends \Magento\Framework\View\Element\Template implements \Magento\Widget\Block\BlockInterface
 {
 	public function _toHtml()
     {
