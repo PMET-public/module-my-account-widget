@@ -1,0 +1,16 @@
+<?php
+$creditbalance = $this->getData('creditbalance');
+$orders = $this->getData('orders');
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->create('Magento\Customer\Model\Session');
+if($customerSession->isLoggedIn()){
+?>
+<span class="info">Available Credit: <br> <b><?php echo $creditbalance ?></b></span>
+<span class="info">Order History: <br> <b><?php echo $orders ?></b></span>
+<?php
+} else {
+?>
+  <span class="info">Please login or register now.</span>
+<?php
+}
+?>
