@@ -13,7 +13,7 @@ $orderCollection = $objectManager->create('Magento\Sales\Model\ResourceModel\Ord
 
 if($customerSession->isLoggedIn()){
 ?>
-<span class="info">Available Credit: <br> <b><?php echo $creditbalance ?></b></span>
+<span class="info">Available Credit: <br> <b><?php echo "$".number_format($creditbalance, 2); ?></b></span>
 <span class="info">Order History:</span>
 <div class="table-wrapper orders-history">
     <table class="data table table-order-items history" id="my-orders-table">
