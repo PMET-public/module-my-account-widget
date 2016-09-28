@@ -1,0 +1,51 @@
+<?php
+$creditbalance = $this->getData('creditbalance');
+$orders = $this->getData('orders');
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->create('Magento\Customer\Model\Session');
+$customerId = $customerSession->getCustomer()->getId();
+$orderCollection = $objectManager->create('Magento\Sales\Model\ResourceModel\Order\CollectionFactoryInterface')->create($customerId)->addFieldToSelect(
+    '*'
+)->setOrder(
+    'created_at',
+    'desc'
+);
+
+if($customerSession->isLoggedIn()){
+?>
+<span class="info">Available Credit: <br> <b><?php echo "$".number_format($creditbalance, 2); ?></b></span>
+<span class="info">Order History:</span>
+<div class="table-wrapper orders-history">
+    <table class="data table table-order-items history" id="my-orders-table">
+        <caption class="table-caption"><?php /* @escapeNotVerified */ echo __('Orders') ?></caption>
+        <thead>
+            <tr>
+                <th scope="col" class="col id"><?php /* @escapeNotVerified */ echo __('Order') ?></th>
+                <?php /* @noEscape */ echo $block->getChildHtml('extra.column.header');?>
+                <th scope="col" class="col status"><?php /* @escapeNotVerified */ echo __('Total') ?></th>
+                <th scope="col" class="col actions"><?php /* @escapeNotVerified */ echo __('Status') ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($orderCollection as $_order): ?>
+                <tr>
+                    <td data-th="<?php echo $block->escapeHtml(__('Order #')) ?>" class="col id"><?php /* @escapeNotVerified */ echo substr($_order->getRealOrderId(), -4) ?> <br> <?php echo $block->formatDate($_order->getCreatedAt()) ?></td>
+                    <?php $extra = $block->getChildBlock('extra.container'); ?>
+                    <?php if ($extra): ?>
+                        <?php $extra->setOrder($_order); ?>
+                        <?php /* @noEscape */ echo $extra->getChildHtml() ?>
+                    <?php endif; ?>
+                    <td data-th="<?php echo $block->escapeHtml(__('Total')) ?>" class="col total"><?php /* @escapeNotVerified */ echo $_order->formatPrice($_order->getGrandTotal()) ?></td>
+                    <td data-th="<?php echo $block->escapeHtml(__('Status')) ?>" class="col status"><?php /* @escapeNotVerified */ echo $_order->getStatusLabel() ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+  </div>
+<?php
+} else {
+?>
+  <span class="info">Please login or register now.</span>
+<?php
+}
+?>
