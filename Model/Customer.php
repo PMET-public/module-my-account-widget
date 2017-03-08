@@ -16,7 +16,7 @@ class Customer implements \Magento\Customer\CustomerData\SectionSourceInterface
     protected $currentCustomer;
     protected $companyAttributes;
     protected $companyRepository;
-	  protected $limitRepository;
+    protected $creditLimitManagement;
 
     /**
      * @param CurrentCustomer $currentCustomer
@@ -27,14 +27,14 @@ class Customer implements \Magento\Customer\CustomerData\SectionSourceInterface
         View $customerViewHelper,
         \Magento\Company\Model\Customer\CompanyAttributes $companyAttributes,
         \Magento\Company\Model\CompanyRepository $companyRepository,
-        \Magento\CompanyCredit\Model\CreditLimitRepository $limitRepository
+        \Magento\CompanyCredit\Api\CreditLimitManagementInterface $creditLimitManagement
 
     ) {
         $this->currentCustomer = $currentCustomer;
         $this->customerViewHelper = $customerViewHelper;
         $this->companyAttributes = $companyAttributes;
         $this->companyRepository = $companyRepository;
-        $this->limitRepository = $limitRepository;
+        $this->creditLimitManagement = $creditLimitManagement;
     }
 
     /**
@@ -50,7 +50,7 @@ class Customer implements \Magento\Customer\CustomerData\SectionSourceInterface
             'fullname' => $this->customerViewHelper->getCustomerName($customer),
             'firstname' => $customer->getFirstname(),
             'company' => $this->companyRepository->get($this->companyAttributes->getCompanyAttributesByCustomer($customer)->getCompanyId())->getName(),
-            'creditlimit' => $this->limitRepository->getCreditByCompanyId($this->companyAttributes->getCompanyAttributesByCustomer($customer)->getCompanyId())->getCreditLimit(),
+            'creditlimit' => $this->creditLimitManagement->getCreditByCompanyId($this->companyAttributes->getCompanyAttributesByCustomer($customer)->getCompanyId())->getCreditLimit(),
         ];
     }
 }
