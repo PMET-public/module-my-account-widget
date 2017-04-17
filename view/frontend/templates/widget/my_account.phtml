@@ -1,6 +1,6 @@
 <?php
-$creditbalance = $this->getData('creditbalance');
 $orders = $this->getData('orders');
+$creditBalance = $block->getLayout()->createBlock('Magento\CompanyCredit\Block\Company\CreditBalance');
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $customerSession = $objectManager->create('Magento\Customer\Model\Session');
 $customerId = $customerSession->getCustomer()->getId();
@@ -13,7 +13,11 @@ $orderCollection = $objectManager->create('Magento\Sales\Model\ResourceModel\Ord
 
 if($customerSession->isLoggedIn()){
 ?>
-<span class="info">Available Credit: <br> <b><?php echo "$".number_format($creditbalance, 2); ?></b></span>
+<span class="info">
+  <span class="info">Available Credit: <br> <b>
+  <?php echo $creditBalance->getAvailableCredit(); ?></b>
+  </span>
+</span>
 <span class="info">Order History:</span>
 <div class="table-wrapper orders-history">
     <table class="data table table-order-items history" id="my-orders-table">
