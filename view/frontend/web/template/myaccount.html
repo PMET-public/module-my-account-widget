@@ -1,0 +1,29 @@
+<div data-bind="foreach: customerData,event: { load: getCustomerData() }">
+<!--Logged in-->
+<span class="info" data-bind="visible: loggedin">
+  <span class="info">Available Credit: <br> <b>
+   <span data-bind="text: creditlimit"></span></b>
+  </span>
+</span>
+<span class="info" data-bind="visible: loggedin">Order History:</span>
+<div class="table-wrapper orders-history" data-bind="visible : loggedin">
+    <table class="data table table-order-items history" id="my-orders-table">
+        <caption class="table-caption">Orders</caption>
+        <thead>
+        <tr>
+            <th scope="col" class="col id">Order</th>
+            <th scope="col" class="col status">Total</th>
+            <th scope="col" class="col actions">Status</th>
+        </tr>
+        </thead>
+        <tbody data-bind="html : ordertable">
+
+        </tbody>
+    </table>
+
+</div>
+
+
+<!--Not logged in-->
+<span class="info" data-bind="visible: notloggedin">Please login or register now.</span>
+</div>

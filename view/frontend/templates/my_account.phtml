@@ -1,0 +1,19 @@
+<div data-bind="scope: 'myaccount'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+
+
+<script type="text/x-magento-init">
+        {
+            "*": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "myaccount": {
+                            "component": "MagentoEse_MyAccountWidget/js/myaccount",
+                            "template" : "MagentoEse_MyAccountWidget/myaccount"
+                        }
+                    }
+                }
+            }
+        }
+</script>
