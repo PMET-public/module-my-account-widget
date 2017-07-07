@@ -44,7 +44,6 @@ class Customer implements \Magento\Customer\CustomerData\SectionSourceInterface
             'fullname' => $this->customerViewHelper->getCustomerName($customer),
             'firstname' => $customer->getFirstname(),
             'company' => $this->companyRepository->get($this->companyAttributes->getCompanyAttributesByCustomer($customer)->getCompanyId())->getCompanyName(),
-            'creditlimit' => $this->creditLimitManagement->getCreditByCompanyId($this->companyAttributes->getCompanyAttributesByCustomer($customer)->getCompanyId())->getCreditLimit(),
-        ];
+         ];
     }
 }

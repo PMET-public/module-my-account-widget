@@ -57,7 +57,8 @@ class CustomerOrder
     public function getCreditLimit(){
         $customer = $this->customerRepository->getById($this->getUserId());
         $companyId = $customer->getExtensionAttributes()->getCompanyAttributes()->getCompanyId();
-        return '$'.money_format('%i',$this->creditLimit->getCreditByCompanyId($companyId)->getCreditLimit());
+        return '$'.money_format('%i',$this->creditLimit->getCreditByCompanyId($companyId)->getAvailableLimit());
+ 
     }
     public function getOrders()
     {
