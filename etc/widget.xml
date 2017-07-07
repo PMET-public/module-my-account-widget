@@ -2,5 +2,6 @@
 <widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Magento/Widget/etc/widget.xsd">
     <widget id="magentoese_myaccountwidget" class="MagentoEse\MyAccountWidget\Block\Widget\MyAccount">
         <label translate="true">My Account Widget</label>
+        <description>Display company info, credit limit and orders</description>
     </widget>
 </widgets>
