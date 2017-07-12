@@ -23,22 +23,19 @@ class CustomerOrder
     protected $customerRepository;
 
 
-
-
-
     /**
+     * CustomerOrder constructor.
      * @param \Magento\Customer\Model\Session $session
      * @param \Magento\Sales\Model\ResourceModel\Order\CollectionFactoryInterface $orders
      * @param \Magento\CompanyCredit\Api\CreditLimitManagementInterface $creditLimit
-     * @param \Magento\Customer\Api\CustomerRepositoryInterface $customerInterface
+     * @param \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository
      */
-
-
     public function __construct(
         \Magento\Customer\Model\Session $session,
         \Magento\Sales\Model\ResourceModel\Order\CollectionFactoryInterface $orders,
         \Magento\CompanyCredit\Api\CreditLimitManagementInterface $creditLimit,
-        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository)
+        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository
+    )
     {
         $this->session = $session;
         $this->orders = $orders;
@@ -46,20 +43,35 @@ class CustomerOrder
         $this->customerRepository = $customerRepository;
     }
 
-       public function isCustomerLoggedIn()
+    /**
+     * @return bool
+     */
+    public function isCustomerLoggedIn()
     {
         return $this->session->isLoggedIn();
 
     }
+
+    /**
+     * @return int|null
+     */
     public function getUserId(){
         return $this->session->getCustomerId();
     }
+
+    /**
+     * @return string
+     */
     public function getCreditLimit(){
         $customer = $this->customerRepository->getById($this->getUserId());
         $companyId = $customer->getExtensionAttributes()->getCompanyAttributes()->getCompanyId();
         return '$'.money_format('%i',$this->creditLimit->getCreditByCompanyId($companyId)->getAvailableLimit());
  
     }
+
+    /**
+     * @return string
+     */
     public function getOrders()
     {
 

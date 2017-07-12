@@ -3,9 +3,21 @@ namespace MagentoEse\MyAccountWidget\Controller\Data;
 class Customer extends \Magento\Framework\App\Action\Action
 {
 
+    /**
+     * @var \Magento\Framework\App\Action\Context
+     */
+    protected $context;
 
+    /**
+     * @var \MagentoEse\MyAccountWidget\Model\CustomerOrder
+     */
+    protected $customerOrder;
 
-
+    /**
+     * Customer constructor.
+     * @param \Magento\Framework\App\Action\Context $context
+     * @param \MagentoEse\MyAccountWidget\Model\CustomerOrder $customerOrder
+     */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
         \MagentoEse\MyAccountWidget\Model\CustomerOrder $customerOrder
@@ -14,6 +26,7 @@ class Customer extends \Magento\Framework\App\Action\Action
         $this->customerOrder = $customerOrder;
         return parent::__construct($context);
     }
+
 
     public function execute()
     {
@@ -27,9 +40,7 @@ class Customer extends \Magento\Framework\App\Action\Action
             $creditLimit = '';
             $orderData = '';
         }
-
         $returnData = ['loggedin' => $isLoggedIn,'notloggedin'=>$notLoggedIn,'creditlimit'=>$creditLimit,'ordertable'=>$orderData];
-
         echo json_encode($returnData);
     }
 

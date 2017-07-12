@@ -11,12 +11,29 @@ class Customer implements \Magento\Customer\CustomerData\SectionSourceInterface
      * @var CurrentCustomer
      */
     protected $currentCustomer;
-    protected $companyAttributes;
-    protected $companyRepository;
-    protected $creditLimitManagement;
+
     /**
+     * @var \Magento\Company\Model\Customer\CompanyAttributes
+     */
+    protected $companyAttributes;
+
+    /**
+     * @var \Magento\Company\Model\CompanyRepository
+     */
+    protected $companyRepository;
+
+    /**
+     * @var \Magento\CompanyCredit\Api\CreditLimitManagementInterface
+     */
+    protected $creditLimitManagement;
+
+    /**
+     * Customer constructor.
      * @param CurrentCustomer $currentCustomer
      * @param View $customerViewHelper
+     * @param \Magento\Company\Model\Customer\CompanyAttributes $companyAttributes
+     * @param \Magento\Company\Model\CompanyRepository $companyRepository
+     * @param \Magento\CompanyCredit\Api\CreditLimitManagementInterface $creditLimitManagement
      */
     public function __construct(
         CurrentCustomer $currentCustomer,
@@ -31,8 +48,9 @@ class Customer implements \Magento\Customer\CustomerData\SectionSourceInterface
         $this->companyRepository = $companyRepository;
         $this->creditLimitManagement = $creditLimitManagement;
     }
+
     /**
-     * {@inheritdoc}
+     * @return array
      */
     public function getSectionData()
     {
