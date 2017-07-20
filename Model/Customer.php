@@ -58,10 +58,16 @@ class Customer implements \Magento\Customer\CustomerData\SectionSourceInterface
             return [];
         }
         $customer = $this->currentCustomer->getCustomer();
+        $companyName = '';
+        $company = $this->companyAttributes->getCompanyAttributesByCustomer($customer);
+
+       if($company->getCompanyId() !=0){
+            $companyName = ' From '.$this->companyRepository->get($this->companyAttributes->getCompanyAttributesByCustomer($customer)->getCompanyId())->getCompanyName();
+       }
         return [
             'fullname' => $this->customerViewHelper->getCustomerName($customer),
             'firstname' => $customer->getFirstname(),
-            'company' => $this->companyRepository->get($this->companyAttributes->getCompanyAttributesByCustomer($customer)->getCompanyId())->getCompanyName(),
+            'company' => $companyName,
          ];
     }
 }
