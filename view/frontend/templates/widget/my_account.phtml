@@ -1,19 +1,25 @@
-<div data-bind="scope: 'myaccount'">
-    <!-- ko template: getTemplate() --><!-- /ko -->
-</div>
+<?php if($block->isLoggedIn()) : ?>
+  <span class="info">
+      Available Credit: <br> <b><span><?php echo($block->getCreditLimit());?></span></b>
+  </span>
+    <span class="info">Order History:</span>
+    <div class="table-wrapper orders-history">
+        <table class="data table table-order-items history" id="my-orders-table">
+            <caption class="table-caption">Orders</caption>
+            <thead>
+            <tr>
+                <th scope="col" class="col id">Order</th>
+                <th scope="col" class="col status">Total</th>
+                <th scope="col" class="col actions">Status</th>
+            </tr>
+            </thead>
+            <tbody data-bind="html : ordertable">
+                <?php echo($block->getOrders());?>
+            </tbody>
+        </table>
 
+    </div>
 
-<script type="text/x-magento-init">
-        {
-            "*": {
-                "Magento_Ui/js/core/app": {
-                    "components": {
-                        "myaccount": {
-                            "component": "MagentoEse_MyAccountWidget/js/myaccount",
-                            "template" : "MagentoEse_MyAccountWidget/myaccount"
-                        }
-                    }
-                }
-            }
-        }
-</script>
+<?php else : ?>
+    <span class="info">Please login or register now.</span>
+<?php endif; ?>
