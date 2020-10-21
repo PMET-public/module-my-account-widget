@@ -66,13 +66,14 @@ class CustomerOrder
         $customer = $this->customerRepository->getById($this->getUserId());
         $companyId = $customer->getExtensionAttributes()->getCompanyAttributes()->getCompanyId();
         if($companyId!=0){
-            return '$'.money_format('%i',$this->creditLimit->getCreditByCompanyId($companyId)->getAvailableLimit());
+            $formatter = new \NumberFormatter('en-US',\NumberFormatter::CURRENCY);
+            return $formatter->formatCurrency($this->creditLimit->getCreditByCompanyId($companyId)->getAvailableLimit(),'USD');
         }
         else{
             return '$0.00';
         }
 
- 
+
     }
 
     /**
