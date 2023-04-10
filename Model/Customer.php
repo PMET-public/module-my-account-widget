@@ -28,6 +28,12 @@ class Customer implements \Magento\Customer\CustomerData\SectionSourceInterface
     protected $creditLimitManagement;
 
     /**
+     * 
+     * @var View
+     */
+    protected $customerViewHelper;
+
+    /**
      * Customer constructor.
      * @param CurrentCustomer $currentCustomer
      * @param View $customerViewHelper
